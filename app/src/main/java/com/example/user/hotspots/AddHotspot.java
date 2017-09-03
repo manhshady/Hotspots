@@ -59,10 +59,6 @@ public class AddHotspot extends AppCompatActivity {
             txtAddress.setText(address);
         }
 
-
-
-
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

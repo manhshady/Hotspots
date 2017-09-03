@@ -26,14 +26,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity /*implements AdapterView.OnItemClickListener, LoadJsonTask.Listener*/{
+public class MainActivity extends AppCompatActivity {
 
     String res = "";
     ListView listView;
-    public static final String URL = "http://bestlab.us:8080/places";
-    private List<HashMap<String, String>> mHotspotMapList = new ArrayList<>();
-    private static final String KEY_CODE = "code";
-    private static final String KEY_ADDRESS = "address";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +38,7 @@ public class MainActivity extends AppCompatActivity /*implements AdapterView.OnI
         setContentView(R.layout.activity_main);
 
         listView = (ListView) findViewById(R.id.listView);
-//        listView.setOnItemClickListener(this);
-//        new LoadJsonTask(this).execute(URL);
+
 
         Button btnAdd = (Button) findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -61,45 +57,7 @@ public class MainActivity extends AppCompatActivity /*implements AdapterView.OnI
         new LoadHotspot().execute();
     }
 
-//    @Override
-//    public void onLoaded(List<Hotspot> hotspotList) {
-//
-//        for (Hotspot hotspot : hotspotList) {
-//
-//            HashMap<String, String> map = new HashMap<>();
-//
-//            map.put(KEY_CODE, hotspot.getCode());
-//            map.put(KEY_ADDRESS, hotspot.getAddress());
-//
-//
-//           mHotspotMapList.add(map);
-//        }
-//
-//        loadListView();
-//    }
-//
-//    @Override
-//    public void onError() {
-//
-//        Toast.makeText(this, "Error !", Toast.LENGTH_SHORT).show();
-//    }
-//
-//    @Override
-//    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//
-//        Toast.makeText(this, mHotspotMapList.get(i).get(KEY_ADDRESS),Toast.LENGTH_LONG).show();
-//    }
-//
-//    private void loadListView() {
-//
-//        ListAdapter adapter = new SimpleAdapter(MainActivity.this, mHotspotMapList, android.R.layout.simple_expandable_list_item_2,
-//                new String[] { KEY_CODE, KEY_ADDRESS },
-//                new int[] {android.R.id.text1,
-//                   android.R.id.text2 });
-//
-//        listView.setAdapter(adapter);
-//
-//    }
+
 
     private class LoadHotspot extends AsyncTask<Void, Void, Void>{
 
@@ -117,8 +75,6 @@ public class MainActivity extends AppCompatActivity /*implements AdapterView.OnI
             Gson gson = new Gson();
 
             Type listType = new TypeToken<List<Hotspot>>(){}.getType();
-
-            //Hotspot[] list = gson.fromJson(res, Hotspot[].class);
             List<Hotspot> list =  gson.fromJson( res , listType);
             List<Map<String, String>> data = new ArrayList<Map<String, String>>();
             for (Hotspot hotspot: list) {
@@ -128,14 +84,13 @@ public class MainActivity extends AppCompatActivity /*implements AdapterView.OnI
                 datum.put("address", hotspot.getAddress());
                 data.add(datum);
             }
-//            ArrayAdapter adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_expandable_list_item_1, list);
-//            listView.setAdapter(adapter);
+
 
             SimpleAdapter adapter = new SimpleAdapter(MainActivity.this, data,
                     android.R.layout.simple_expandable_list_item_2, new String[]{"code", "address"},  new int[] {android.R.id.text1,
                     android.R.id.text2});
             listView.setAdapter(adapter);
-//
+
         }
     }
 }

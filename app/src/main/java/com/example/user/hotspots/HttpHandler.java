@@ -22,33 +22,7 @@ import java.net.URL;
  */
 
 public class HttpHandler {
-    public static String doGet(String urlStr){
 
-        try {
-            URL url = new URL(urlStr);
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod("GET");
-            urlConnection.setReadTimeout(10000 /* milliseconds */ );
-            urlConnection.setConnectTimeout(15000 /* milliseconds */ );
-            urlConnection.setDoOutput(true);
-            urlConnection.connect();
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-
-            String line;
-            StringBuilder builder = new StringBuilder();
-            while((line = reader.readLine())!=null){
-                builder.append(line);
-            }
-            reader.close();
-            return builder.toString();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-
-    }
     public static String doPost(String urlStr, Hotspot hotspot){
 
         try {
@@ -110,7 +84,7 @@ public class HttpHandler {
     public static String getJSONFromUrl(String url)  {
 
         HttpURLConnection httpURLConnection ;
-        BufferedReader bufferedReader = null;
+        BufferedReader bufferedReader;
         StringBuilder stringBuilder;
         String line;
         String jsonString = null;

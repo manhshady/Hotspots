@@ -3,6 +3,7 @@ package com.example.user.hotspots;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -234,8 +235,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 return;
             }
 
-            // other 'case' lines to check for other permissions this app might request.
-            // You can add here other case statements according to your requirement.
+
         }
     }
     private class LoadMarker extends AsyncTask<Void, Void, Void>{
@@ -259,7 +259,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             for (Hotspot hotspot: list) {
                 locationMarker = mMap.addMarker(new MarkerOptions().title(hotspot.getCode())
                         .position(new LatLng(hotspot.getLat(), hotspot.getLon()))
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.police)));
 
             }
         }

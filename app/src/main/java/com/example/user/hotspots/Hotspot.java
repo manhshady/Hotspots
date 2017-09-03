@@ -24,8 +24,6 @@ public class Hotspot {
     private double lat;
 
 
-    Boolean status;
-
     @SerializedName("address")
     private String address;
 
